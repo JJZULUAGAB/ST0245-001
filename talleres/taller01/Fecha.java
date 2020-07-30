@@ -106,6 +106,6 @@ public class Fecha {
      * @return una cadena que contiene la fecha
      */
     public String toString() {
-          return Integer.toString(dia) +", " + Integer.toString(mes)+", " + ", "+ Integer.toString(año);
+          return Integer.toString(dia) +", " + Integer.toString(mes)+", " + Integer.toString(año);
     }
 }
