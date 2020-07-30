@@ -3,9 +3,6 @@
  * Aunque ya existen librerías encargadas de esta funcion:
  * @see <a href="http://www.baeldung.com/java-8-date-time-intro"> Ver documentacion tipo Time </a>
  * En este ejercicio podemos tener una compresión más profunda de su funcionamiento interno.
- * 
- * @author Mauricio Toro, Andres Paez
- * @version 1
  */
 
 public class Fecha {
