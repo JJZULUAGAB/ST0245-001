@@ -60,7 +60,7 @@ public class Punto {
      * @see <a href="http://mathworld.wolfram.com/PolarCoordinates.html"> Ver más <a/>
      */
     public double anguloPolar() {
-        return Math.toDegrees(Math.atan((x/y)));
+        return Math.atan((x/y));
     }
 
     /**
