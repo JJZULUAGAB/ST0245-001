@@ -38,7 +38,7 @@ return h[columna];
 }
 
 public static void main(String[] args) {
-    importar b = new importar("4.csv");
+    importar b = new importar("0_test_balanced_5000.csv");
     System.out.println(b.valorString(18,999));
 }
 
