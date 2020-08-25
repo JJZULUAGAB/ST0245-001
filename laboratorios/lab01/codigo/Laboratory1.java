@@ -1,3 +1,11 @@
+/**
+ *
+ * @author Isabella Quintero, Sofia Vega
+ * This class contains the methods that solve points 1.1 and 1.2 of laboratory 
+ * practice 1
+ */
+
+
 
 public class Laboratory1 {
     
@@ -8,28 +16,18 @@ public class Laboratory1 {
      * @return length of the largest common sequence between cadena
      */
     public static int lcsDNA(String string1, String string2){
-        return lcsDNAAux(string1,string2,string1.length(),string2.length());
-    }
-    /**
-     * This method is an auxiliar for lcsDNA
-     * @param string1 first characters string
-     * @param string2 second characters string
-     * @param m length of cadena1
-     * @param n length of cadena 2
-     * @return length of the largest common sequence between two strings
-     */
-    private static int lcsDNAAux(String string1, String string2, int m, int n) {
-        if(n==0 || m==0){
+        if( string1.equals("") || string2.equals("") ){
             return 0; // c1 = 5
         }
-        if(string1.charAt(m-1)==string2.charAt(n-1)){ //C2 =6
-            return 1 + lcsDNAAux(string1,string2,m-1,n-1); 
+        else if(string1.charAt(0)==string2.charAt(0)){ //C2 =6
+            return 1 + lcsDNA(string1.substring(1),string2.substring(1)); 
+            // T(I) = T(I-2) + C_2
         }
-        return Math.max(lcsDNAAux(string1,string2,m-1,n), lcsDNAAux(string1,string2,m,n-1)); //
-        /* 
-        T(I) = m+n = n+m         
-                m = n+m-n
-       
+        return Math.max(lcsDNA(string1.substring(1),string2), lcsDNA(string1,string2.substring(1)));
+        /*
+        I = m + n 
+        T(I) = T(I-1)+T(I+1)+ C_3
+        T(I) = C3^
         */
     }
     public static int ways(int n){
