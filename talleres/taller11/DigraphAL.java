@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -35,7 +37,7 @@ public class DigraphAL extends Digraph {
 	*/
 	public void addArc(int source, int destination, int weight) {
 		Pair<Integer,Integer> pareja = new Pair<Integer,Integer>(destination,weight);
-		 nodo.get(source).add(destination,pareja);
+		 nodo.get(source).add(pareja);
 	}
 
 	/**
@@ -48,14 +50,21 @@ public class DigraphAL extends Digraph {
 	*/
 	public ArrayList<Integer> getSuccessors(int vertex) {
 		ArrayList<Integer> n = new ArrayList<>();
-		
+		if(nodo.get(vertex).size() == 0)
+		return null;
+		if(nodo.get(vertex) == null)
+		return null;
 		for(Pair<Integer,Integer> j :nodo.get(vertex)){
+			if(j == null)
+			break;
 			n.add(j.first);
+			
 		}
-        
+		
+		Collections.sort(n);
 
-        return n;
-	}
+		return n;
+		}
 
 	/**
 	* Metodo para obtener el peso o longitud entre dos nodos
