@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -10,7 +9,9 @@ import java.util.LinkedList;
  * Estructura de datos utilizada: Grafo con Matrices de Adyacencia
  * Complejidad: Peor Caso y Mejor Caso O(n*n)
  *
- 
+ * @author Mauricio Toro
+ * @version 1
+ */
 public class VehiculosCompartidos
 {
     /**
@@ -47,42 +48,36 @@ public class VehiculosCompartidos
     }
     
     /**
-    * Algoritmo para asignar vehiculos compartidos 
-    * Complejidad: ???, donde n son los duenos de vehiculos y la empresa
+    * Algoritmo para asignar vehiculos compartidos (No tiene en cuenta la restriccion que hay en el problema)
+    * Lo que hace es agrupar los duenos de vehiculos en permutaciones de maximo 5 elementos
+    * Complejidad: Mejor y Peor Caso O(n), donde n son los duenos de vehiculos y la empresa
     *
     * @param  grafo  Un grafo que puede estar implementado con matrices o con listas de adyacencia
     * @return una lista de listas con la permutacion para cada subconjunto de la particion de duenos de vehiculo
     */
-    public static LinkedList<LinkedList<Integer>> asignarVehiculos(Digraph grafo, float pesoMaximo){
-        LinkedList<LinkedList<Integer>> retorno = new  LinkedList<LinkedList<Integer>>();
-        int[] pesos = new int[grafo.size()];
-        int[] puede = new int[grafo.size()];
-        for(int i = 1; i < grafo.size();++i){
-            pesos[i] =  grafo.getWeight(i,0); 
-        }
-        Arrays.sort(pesos);
-        for(int i = pesos.length; i>0;--i){
-            int pesoAcumulado = 0;            
-            LinkedList<Integer> aux  = new LinkedList<Integer>();
-            while(aux.size()<4){
-                int minimo = 1;
-                for(int j = 1; j < grafo.size();++j){
-                    if(puede[j] == 0){
-                        if(grafo.getWeight(i,minimo)>grafo.getWeight(i,j))
-                            minimo = j;
-                    } 
-                }
-                if( pesoAcumulado + grafo.getWeight(i,minimo) < pesoMaximo ){
-                    aux.add(minimo);
-                    pesoAcumulado = pesoAcumulado + grafo.getWeight(i,minimo);
-                    puede[minimo] = 1;
-                }
-                 
-                aux.add(minimo);
-            }
-            retorno.add(aux);
-        }
-        return retorno;
+    public static LinkedList<LinkedList<Integer>> asignarVehiculos(Digraph grafo, float p){
+          LinkedList<LinkedList<Integer>> permutacionParaCadaSubconjunto = new LinkedList<LinkedList<Integer>>();
+          int dueno = 2; // Empieza en 2 porque 1 es la empresa
+          int contador = 1;
+          LinkedList<Integer> permutacion = new LinkedList<Integer>();
+          while (dueno <= grafo.size()){
+              if (contador == 1){ // Si el contador es 1, crear una nueva permutacion
+                  permutacion = new LinkedList<Integer>();
+                  permutacion.add(dueno);
+                  dueno++; 
+                  contador++;
+              }
+              else { // Sino, seguir insertando en la permutacion actual
+                  permutacion.add(dueno);
+                  dueno++; 
+                  contador++;
+                  if (contador == 6 || dueno == grafo.size()){  //Si esto se cumple, agregar la permutacion a la respuesta
+                      contador = 1;
+                      permutacionParaCadaSubconjunto.add(permutacion);
+                  }                    
+              }
+          }
+          return permutacionParaCadaSubconjunto;
     }
         
     /**
@@ -118,7 +113,7 @@ public class VehiculosCompartidos
           LinkedList<LinkedList<Integer>> permutacionParaCadaSubconjunto = asignarVehiculos(grafo,p);
           long estimatedTime = System.currentTimeMillis() - startTime;
           System.out.println("El algoritmo tomo un tiempo de: "+estimatedTime+" ms");
-          // Guardar en un archivo         
+          // Guardar en un archivo las abejas con riesgo de colision            
           guardarArchivo(permutacionParaCadaSubconjunto, numeroDePuntos, p);
         
    }
