@@ -154,13 +154,14 @@ public class Test {
      */
 
 
-    public float pAciertos(String rutaTrain, String rutaTest, int[] preguntas){
+    public static  double  pAciertos(String rutaTrain, String rutaTest, int[] preguntas){
         ArrayList<String[]> lista = importar.Lector(rutaTrain,preguntas);
         ArrayList<String[]> lista2 = importar.Lector(rutaTest,preguntas);
-        Tree root = new Tree(lista);
+        Tree root = new Tree(lista);        
         Test nuevo = new Test();
         nuevo.Fill(lista2, root);
-        return  (nuevo.acierto * 100)/lista2.size()-1;
+        double retorno = lista2.size()-1;
+        return  nuevo.acierto/retorno;
     }
 
     public static void main(String[] args) {
